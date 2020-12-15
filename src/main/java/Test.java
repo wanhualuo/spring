@@ -13,6 +13,7 @@ public class Test {
         CallableStatement cs = con.prepareCall(sql);
         cs.setString(1,"zhou1");
         cs.setString(2,"zhou2");
+        System.out.println("gddhh");
         cs.setBigDecimal(3,new BigDecimal(100));
         cs.executeUpdate();
         DBUtil.close(null,cs,con);
