@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			td{
+				width: 120px;
+				height: 30px;
+				text-align: center;
+				
+			}
+			tr:nth-child(even){
+				background-color: aqua;
+			}
+			td:hover{
+				background-color: antiquewhite;
+			}
+		</style>
+	</head>
+	<body>
+		<table boder="1" id="empsInfo">
+			<tr>
+				<td>empno</td>
+				<td>ename</td>
+				<td>hiredate</td>
+				<td>sal</td>
+			</tr>
+		</table>
+		<script src="jquery-3.5.1.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$.ajax({
+					url:"json/emps.json",
+					type:"get",
+					success:function(res){
+						var emps = res;
+						$table = $("#empsInfo");
+						for(i in emps){
+							var emp = emps[i];
+							$tr = $("<tr></tr>");
+							for(j in emp){
+								$td = $("<td></td>");
+								$td.text(emp[j]);
+								$tr.append($td)
+							}
+							$table.append($tr)
+						}
+					}
+					
+				})
+			})
+		</script>
+		
+	</body>
+</html>

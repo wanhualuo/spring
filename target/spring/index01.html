@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<table>
+				<tr>
+					<td>用户名</td>
+					<td><input type="text"  id="username" value="root" />
+					<span id="existMsg"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>密码</td>
+					<td><input type="password" id="password"></td>
+				</tr>
+				<tr>
+					<td><a id="loginBtn">登录</a></td>
+					<td><a id="regBtn">注册</a></td>
+				</tr>
+			</table>
+			<p id="loginErrorMsg"></p>
+		</div>
+		<script src="js/jquery-3.5.1.min.js" type="text/javascript" charset="UTF-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#loginBtn").click(function(){
+					$.ajax({
+						url:"http://localhost:8081/login",
+						type:"post",
+						//dataType:"jsonp",
+						data:{
+							"username":$("#username").val(),
+							"password":$("#password").val()
+						},
+						success:function(res){
+							
+							var result = JSON.parse(res);
+							console.log(res.status)
+							if(result.status == 200){
+								window.location.href = "http://localhost:8081/empbypage"
+							}else{
+								$("#loginErrorMsg").css("color","red").text(result.msg)
+							}		
+						},
+						error:function(e){
+							//alert("登录异常")
+							console.log(e)
+							
+						}
+					})
+				});
+				$("#username").blur(function(){
+					$.ajax({
+						url:"http://localhost:8081/userexist",
+						type:"post",
+						//dataType:"jsonp",
+						data:{
+							"username":$("#username").val()
+						},
+						success:function(res){
+							console.log(typeof(res));
+							console.log(res);
+							var result = JSON.parse(res);
+							if(result.status == 201){
+								$("#existMsg").css("color","green").text(result.msg)
+							}else{
+								$("#existMsg").css("color","red").text(result.msg)
+							}		
+						},
+						error:function(e){
+							//alert("用户名存在检测异常")
+							console.log(e)
+							
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+</html>

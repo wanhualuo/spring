@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>批量删除</title>
+	</head>
+	<body>
+	<ul id="emps">
+		<li>1编号员工信息<input type="checkbox" value="1"></li>
+		<li>2编号员工信息<input type="checkbox" value="2"></li>
+		<li>3编号员工信息<input type="checkbox" value="3"></li>
+		<li>4编号员工信息<input type="checkbox" value="4"></li>
+		<li>5编号员工信息<input type="checkbox" value="5"></li>
+		<li>6编号员工信息<input type="checkbox" value="6"></li>
+		<li>7编号员工信息<input type="checkbox" value="7"></li>
+		<li>8编号员工信息<input type="checkbox" value="8"></li>
+		<li>9编号员工信息<input type="checkbox" value="9"></li>
+	</ul>
+	<button id="batchBtn">批量删除</button>
+	<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#batchBtn").click(function(){
+				var data = [];
+				$("#emps input:checkbox:checked").each(function () {	
+						data.push({empno:$(this).val()})
+				}),
+				$.ajax({
+					url:"http://localhost:8081/empdelbatch",
+					type:"post",
+					data:{
+						empnos:JSON.stringify(data)//json格式传参
+					},
+					success:function(res){
+						console.log(res)
+					}
+				})
+			})
+		})
+	</script>
+	</body>
+</html>

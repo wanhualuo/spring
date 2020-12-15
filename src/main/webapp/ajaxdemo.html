@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>AJAX DEMO</title>
+	</head>
+	<body>
+		菜名：<input type="text" id="menu">
+		<button type="queryBtn" onclick="query()">查询</button>
+		
+		<script type="text/javascript">
+			function query(){
+				yourajax({
+					url:"json/emps.json",
+					type:"get",
+					success:function(res){
+						for(i in res){
+							var emp = res[i];
+							console.log(emp.ename)
+						}
+					}
+				})
+			}
+			//手动实现ajax  最底层的问题
+			function yourajax(object){
+				var xhr = new XMLHttpRequest();
+				//当xhr发送请求之后 回调处理
+				
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && xhr.status == 200){
+						var data = JSON.parse(xhr.response)
+						object.success(data)
+							
+					}
+				}
+				
+				//用get请求创建一个连接
+				xhr.open(object.type,object.url);
+				//将请求发出去
+				xhr.send();
+				}
+			
+			
+			//函数式编程 和回调函数
+	/* 		function query(){
+				myajax({
+					url:"json/emps.json",
+					type:"get"
+				},function(res){
+					for(i in res){
+						var emp = res[i];
+						console.log(emp.ename)
+					}
+				})
+			}
+			function myajax(object,callback){
+				var xhr = new XMLHttpRequest();
+				//当xhr发送请求之后 回调处理
+				
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && xhr.status == 200){
+						var data = JSON.parse(xhr.response)
+						callback(data)
+					}
+				}
+				
+				//用get请求创建一个连接
+				xhr.open(object.type,object.url);
+				//将请求发出去
+				xhr.send();
+				
+			} */
+		/* 	$(function(){
+				$("#queryBtn").click(function(){
+					$.ajax({
+						url:"http://apis.juhe.cn/cook/query.php",
+						type:"post",
+						date:{
+							mene:"红烧肉",
+							key:"d6b7033099369be4bd92c6c9b16c0646"
+						},
+						dataType:"jsonp",
+						success:function(res){
+							console.log("1111")
+							console.log(res)
+						}
+					})
+				})
+			
+			}) */
+		</script>
+	</body>
+</html>
