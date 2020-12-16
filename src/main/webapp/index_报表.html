@@ -18,7 +18,7 @@
 	$(function(){
 		$("#query").click(function(){
 			$.ajax({
-				url:"http://localhost:8081/empbydept",
+				url:"http://localhost:8080/empbydept",
 				type:"post",
 				data:{
 					"deptno":$("depts").val()
@@ -29,7 +29,7 @@
 			})
 		})
 		$.ajax({
-			url:"http://localhost:8081/deptall",
+			url:"http://localhost:8080/deptall",
 			type:"get",
 			success:function(res){
 				var depts = JSON.parse(res)

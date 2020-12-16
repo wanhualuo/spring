@@ -29,7 +29,7 @@
 			$(function(){
 				$("#loginBtn").click(function(){
 					$.ajax({
-						url:"http://localhost:8081/login",
+						url:"http://localhost:8080/login",
 						type:"post",
 						//dataType:"jsonp",
 						data:{
@@ -41,7 +41,7 @@
 							var result = JSON.parse(res);
 							console.log(res.status)
 							if(result.status == 200){
-								window.location.href = "http://localhost:8081/empbypage"
+								window.location.href = "http://localhost:8080/empbypage"
 							}else{
 								$("#loginErrorMsg").css("color","red").text(result.msg)
 							}		
@@ -55,7 +55,7 @@
 				});
 				$("#username").blur(function(){
 					$.ajax({
-						url:"http://localhost:8081/userexist",
+						url:"http://localhost:8080/userexist",
 						type:"post",
 						//dataType:"jsonp",
 						data:{
